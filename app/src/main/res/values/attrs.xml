@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--标题栏样式-->
+    <declare-styleable name="CustomToolBar">
+        <!--左按钮是否可见|背景-->
+        <attr name="left_btn_visible" format="boolean" />
+        <attr name="left_btn_src" format="reference|color" />
+        <!--左文本是否可见|文本内容-->
+        <attr name="left_tv_visible" format="boolean" />
+        <attr name="left_tv_text" format="string" />
+        <!--右边按钮是否可见|背景-->
+        <attr name="right_btn_visible" format="boolean" />
+        <attr name="right_btn_src" format="reference|color" />
+        <!--右文本是否可见|文本内容-->
+        <attr name="right_tv_visible" format="boolean" />
+        <attr name="right_tv_text" format="string" />
+        <!--标题是否可见|文本内容-->
+        <attr name="title_visible" format="boolean" />
+        <attr name="title_text" format="string" />
+        <!--背景-->
+        <attr name="barBackground" format="reference|color" />
+    </declare-styleable>
+
+    <!--&lt;!&ndash;citypicker&ndash;&gt;
+    <attr name="cpCancelTextSize" format="dimension|reference" />
+    <attr name="cpCancelTextColor" format="color|reference" />
+
+    <attr name="cpClearTextIcon" format="reference" />
+    <attr name="cpSearchTextSize" format="dimension|reference" />
+    <attr name="cpSearchTextColor" format="color|reference" />
+    <attr name="cpSearchHintText" format="string|reference" />
+    <attr name="cpSearchHintTextColor" format="color|reference" />
+    <attr name="cpSearchCursorDrawable" format="reference" />
+
+    <attr name="cpListItemTextSize" format="dimension|reference" />
+    <attr name="cpListItemTextColor" format="color|reference" />
+    <attr name="cpListItemHeight" format="dimension|reference"/>
+
+    <attr name="cpEmptyIcon" format="reference"/>
+    <attr name="cpEmptyIconWidth" format="dimension|reference"/>
+    <attr name="cpEmptyIconHeight" format="dimension|reference"/>
+    <attr name="cpEmptyText" format="string|reference"/>
+    <attr name="cpEmptyTextSize" format="dimension|reference"/>
+    <attr name="cpEmptyTextColor" format="color|reference"/>
+
+    <attr name="cpGridItemBackground" format="color|reference"/>
+    <attr name="cpGridItemSpace" format="reference"/>
+    &lt;!&ndash;悬浮栏&ndash;&gt;
+    <attr name="cpSectionHeight" format="reference"/>
+    <attr name="cpSectionTextSize" format="reference" />
+    <attr name="cpSectionTextColor" format="reference" />
+    <attr name="cpSectionBackground" format="reference" />
+
+    <attr name="cpIndexBarTextSize" format="reference" />
+    <attr name="cpIndexBarNormalTextColor" format="reference" />
+    <attr name="cpIndexBarSelectedTextColor" format="reference" />
+    &lt;!&ndash;特写布局&ndash;&gt;
+    <attr name="cpOverlayWidth" format="dimension|reference"/>
+    <attr name="cpOverlayHeight" format="dimension|reference"/>
+    <attr name="cpOverlayTextSize" format="dimension|reference"/>
+    <attr name="cpOverlayTextColor" format="color|reference"/>
+    <attr name="cpOverlayBackground" format="color|reference"/>-->
+</resources>
