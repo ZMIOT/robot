@@ -3,6 +3,8 @@ package ldu.guofeng.imdemo.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,6 +52,7 @@ import ldu.guofeng.imdemo.bean.MsgModel;
 import ldu.guofeng.imdemo.bean.SessionModel;
 import ldu.guofeng.imdemo.bean.kdJSON;
 import ldu.guofeng.imdemo.bean.kdString;
+import ldu.guofeng.imdemo.db.MyDatabasehelper;
 import ldu.guofeng.imdemo.im.SmackUtils;
 import ldu.guofeng.imdemo.util.HttpUtil;
 import ldu.guofeng.imdemo.util.HttpUtils;
@@ -64,6 +67,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+
 
 /**
  * 聊天
@@ -87,6 +92,7 @@ public class ChatActivity extends CustomReturnToolbar implements View.OnClickLis
     private MsgModel msgModelAll;
     private String kdtext;
     private int kdExsit=0;
+    private MyDatabasehelper dbhelper=new MyDatabasehelper(ChatActivity.this,"ChatLog.db",null,1);
     int count=0;
 
     private static final String JOKESTR = "/jokeLet";
@@ -192,12 +198,13 @@ public class ChatActivity extends CustomReturnToolbar implements View.OnClickLis
                 SmackUtils.getInstance().sendMessage(message, to);
             }
         }).start();
-
+        SQLiteDatabase db=dbhelper.getWritableDatabase();
         //在聊天列表插入一条文本消息
         MsgModel msgModel = new MsgModel();
         msgModel.setToUser(to);
         msgModel.setType(Constant.MSG_TYPE_SERVICER);
         msgModel.setContent(resultText);
+        db.execSQL("insert into ChatLog(speaker,msgType,txtContent)values(?,?,?)",new Object[]{msgModel.getToUser(),msgModel.getType(),resultText});//将消息插入到列表中
         adapter.insertLastItem(new ItemModel(ItemModel.LEFT_TEXT, msgModel));
         insertSession(msgModel);
         msgModelAll=msgModel;
@@ -227,11 +234,13 @@ public class ChatActivity extends CustomReturnToolbar implements View.OnClickLis
             }
         }).start();
 
+        SQLiteDatabase db=dbhelper.getWritableDatabase();
         //在聊天列表插入一条文本消息
         MsgModel msgModel = new MsgModel();
         msgModel.setToUser(to);
         msgModel.setType(Constant.MSG_TYPE_TEXT);
         msgModel.setContent(txtContent);
+        db.execSQL("insert into ChatLog(speaker,msgType,txtContent)values(?,?,?)",new Object[]{msgModel.getFromUser(),msgModel.getType(),txtContent});//将消息插入到列表中
         adapter.insertLastItem(new ItemModel(ItemModel.RIGHT_TEXT, msgModel));
         insertSession(msgModel);
         msgModelAll=msgModel;
@@ -590,7 +599,30 @@ public class ChatActivity extends CustomReturnToolbar implements View.OnClickLis
         Bundle bundle = this.getIntent().getExtras();
         to = bundle.getString("to_user");
         txtContent="";
+        insertMessage();
+
     }
+
+    private void insertMessage(){
+        dbhelper=new MyDatabasehelper(ChatActivity.this,"ChatLog.db",null,1);
+        SQLiteDatabase db=dbhelper.getWritableDatabase();
+        Cursor cursor=db.query("ChatLog",null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                MsgModel msgModel=new MsgModel();
+                msgModel.setToUser(cursor.getString(cursor.getColumnIndex("speaker")));
+                msgModel.setType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                msgModel.setContent(cursor.getString(cursor.getColumnIndex("txtContent")));
+                if(cursor.getInt(cursor.getColumnIndex("msgType"))==1){
+                    adapter.insertLastItem(new ItemModel(ItemModel.RIGHT_TEXT, msgModel));
+                }else if(cursor.getInt(cursor.getColumnIndex("msgType"))==3){
+                    adapter.insertLastItem(new ItemModel(ItemModel.LEFT_TEXT, msgModel));
+                }
+            }while(cursor.moveToNext());
+        }
+    }
+
+
 
     private void initEditText() {
         et_message.addTextChangedListener(new TextWatcher() {
