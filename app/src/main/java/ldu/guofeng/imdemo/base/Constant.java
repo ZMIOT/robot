@@ -15,8 +15,8 @@ public class Constant {
    /* public static final String IM_HOST = "192.168.3.105";
     public static final String IM_SERVER = "192.168.3.105";*/
 
-    public static final String IM_HOST = "192.168.43.143";
-    public static final String IM_SERVER = "http://134.175.105.227:8080/HelloWeb";
+    public static final String IM_HOST = "134.175.105.227";
+    public static final String IM_SERVER = "134.175.105.227";
     public static final int IM_PORT = 5222;
 
     //消息分隔符

@@ -39,7 +39,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout exit;//退出
     private TextView name;//昵称
     private MyDatabasehelper dbhelper;
-    private ImageView cleanChat;
 
     @Nullable
     @Override
@@ -57,14 +56,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         about = (RelativeLayout) view.findViewById(R.id.rl_about);
         exit = (RelativeLayout) view.findViewById(R.id.rl_app_exit);
         name = (TextView) view.findViewById(R.id.name);
-        cleanChat=(ImageView)view.findViewById(R.id.cleanChat);
+
         rl_clear_msg=(RelativeLayout)view.findViewById(R.id.rl_msg_clear);
     }
 
     private void init() {
         //about.setOnClickListener(this);
         exit.setOnClickListener(this);
-        cleanChat.setOnClickListener(this);
         rl_clear_msg.setOnClickListener(this);
 
     }
